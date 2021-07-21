@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>登录</title>
+    <link href="~/css/login.css" rel="stylesheet" />
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/layui.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="box">
+            <h2>用户登录</h2>
+            <form id="dataForm">
+                <div class="inputBox">
+                    <input type="email" name="email" required="">
+                    <label> 电子邮箱</label>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password" required="">
+                    <label> 密码</label>
+                </div>
+                <input type="button" onclick="Login()" value="登录">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    function Login()
+    {
+        var dataForm = $("#dataForm").serialize();
+        $.ajax({
+            type: 'post',
+            async: false,
+            cache: false,
+            url: '/User/UserVerify',
+            data: dataForm,
+            success: function (data) {
+                if (data.code == 200) {
+                    alert("登录成功");
+                } else {
+                    alert("用户名或密码错误");
+                }
+            }
+        });
+    }
+</script>
