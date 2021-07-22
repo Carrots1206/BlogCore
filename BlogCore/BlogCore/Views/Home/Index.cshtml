@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model BlogCoreModel.Response.ResponseModel;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <link href="~/css/Index.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="head">
+        <ul>
+            <li><a href="default.asp">主页</a></li>
+            <li><a href="news.asp">随记</a></li>
+            <li><a href="contact.asp">杂谈</a></li>
+            <li><a href="about.asp">关于我们</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="content_left">
+            <div class="div_image">
+                <img id="image" style="width: 100%; height: 350px; margin: 0 auto;" src="~/image/index/rabbit.png" alt="1">
+            </div>
+            @if (Model.Code == 200)
+            {
+                foreach (var md in Model.Data)
+                {
+                    <div class="parent_posts">
+                        <div class="posts">
+                            <div class="div_title">
+                                <label>@md.Title</label>
+                                <label class="title_time">@md.AddTime</label>
+                            </div>
+                            <div class="div_details">@md.Details</div>
+                            <div class="div_button"><button class="button" id="@md.Id" onclick="ShowAll(this.id)">查看全文</button></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="content_right">
+            <div class="div_find_info">
+                <div class="div_find">
+                    <div class="div_find_img">
+                        <img alt="" class="find_img" src="~/image/index/find.png" />
+                    </div>
+                    <input id="findData" class="find_input" />
+                </div>
+
+                <div class="div_info">
+                    <div class="div_sub_info">
+                        <table class="table">
+                            <tr>
+                                <td>运行时间：</td>
+                                <td>1天</td>
+                            </tr>
+                            <tr>
+                                <td>发表文章：</td>
+                                <td>0篇</td>
+                            </tr>
+                            <tr>
+                                <td>注册用户：</td>
+                                <td>1人</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function ShowAll(id) {
+        alert(id);
+    }
+
+    function Find() {
+        var input = document.getElementById("input_content").value;
+        $.ajax(
+            {
+                type: 'post',
+                url: '/Home/FindBlogPosts',
+                contentType: 'application/json',
+                data: JSON.stringify(input),
+                async: false,
+                cache: false,
+                success: function (data) {
+                    if (data.Code == 200) {
+                        alert(data.Data);
+                    } else {
+                        alert(data.Data);
+                    }
+                }
+            });
+    }
+</script>

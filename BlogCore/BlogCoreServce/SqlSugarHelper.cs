@@ -2,7 +2,7 @@
 using SqlSugar;
 using System;
 
-namespace BlogCoreServce
+namespace BlogCoreService
 {
     public class SqlSugarHelper
     {

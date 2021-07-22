@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogCoreServce
+namespace BlogCoreService
 {
     public class BlogUserService
     {
